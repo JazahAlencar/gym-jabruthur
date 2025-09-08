@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planos - Gym Jabruthur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="academiaplanos.css">
+
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <span>💪</span>
+            <span>Gym Jabruthur</span>
+        </div>
+        <nav>
+            <a href="academiainicial.html">Início</a>
+            <a href="academiaplanos.html">Planos</a>
+            <a href="academiatreinos.html">Treinos</a>
+            <a href="#">Contato</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="section-header">
+            <h1>Nossos Planos</h1>
+            <p>Escolha o plano perfeito para o seu objetivo</p>
+        </div>
+
+        <div class="planos-container">
+            <div class="plano-card">
+                <div class="plano-icon">🥊</div>
+                <h3>Treino Express</h3>
+                <p>Rápido e ideal para quem quer testar ou começar. Flexível e sem compromisso.</p>
+                <div class="price">R$ 100</div>
+                <button class="btn-assinar" onclick="abrirModal('1', 'Treino Express')">Assinar</button>
+            </div>
+
+            <div class="plano-card">
+                <div class="plano-icon">💥</div>
+                <h3>Três Meses de Poder</h3>
+                <p>Mais foco e economia. Treine por 3 meses com resultados garantidos.</p>
+                <div class="price">R$ 270</div>
+                <button class="btn-assinar" onclick="abrirModal('2', 'Três Meses de Poder')">Assinar</button>
+            </div>
+
+            <div class="plano-card">
+                <div class="plano-icon">🏆</div>
+                <h3>Maratona Jabruthur</h3>
+                <p>Compromisso sério e os melhores resultados para o seu corpo durante 1 ano inteiro.</p>
+                <div class="price">R$ 900</div>
+                <button class="btn-assinar" onclick="abrirModal('3', 'Maratona Jabruthur')">Assinar</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL DE MATRÍCULA -->
+    <div id="modalMatricula" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal()">&times;</span>
+            <h2>Matrícula</h2>
+
+            <form>
+                <div class="form-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <input type="text" id="cpf" name="cpf" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="data_nasc">Data de Nascimento</label>
+                    <input type="date" id="data_nasc" name="data_nasc" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefone">Telefone</label>
+                    <input type="text" id="telefone" name="telefone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="plano">Plano Escolhido</label>
+                    <select id="plano" name="plano" required>
+            <option value="">Selecione um plano</option>
+            <option value="1">Treino Express - R$ 100</option>
+            <option value="2">Três Meses de Poder - R$ 270</option>
+            <option value="3">Maratona Jabruthur - R$ 900</option>
+          </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="rua">Rua</label>
+                    <input type="text" id="rua" name="rua" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="numero">Número</label>
+                    <input type="text" id="numero" name="numero" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="bairro">Bairro</label>
+                    <input type="text" id="bairro" name="bairro" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cidade">Cidade</label>
+                    <input type="text" id="cidade" name="cidade" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="estado">Estado</label>
+                    <input type="text" id="estado" name="estado" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Finalizar Matrícula</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">
+            <span>💪</span>
+            <span>Gym Jabruthur</span>
+        </div>
+        <p>© 2025 Academia Jabruthur & Company | Todos os direitos reservados</p>
+    </footer>
+
+    <script src="academiaplanos.js"></script>
+</body>
+
+</html>

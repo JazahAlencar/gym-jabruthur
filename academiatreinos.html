@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treinos - Gym Jabruthur</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+         :root {
+            --primary-color: #10b981;
+            --primary-dark: #059669;
+            --secondary-color: #f59e0b;
+            --accent-color: #ef4444;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #ffffff;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        nav a::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        main {
+            padding: 8rem 2rem 5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .treinos-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .treino-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            text-align: center;
+            padding-bottom: 1rem;
+        }
+        
+        .treino-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .treino-card-content h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin: 1rem 0 0.5rem 0;
+        }
+        
+        .treino-card-content p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.4;
+            padding: 0 1rem;
+        }
+        
+        .btn-treino {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.7rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-treino:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4);
+        }
+        
+        .treino-card.destaque {
+            border: 2px solid var(--primary-color);
+            background: linear-gradient(to bottom right, rgba(16, 185, 129, 0.15), var(--card-bg));
+        }
+        /* Modal */
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: 10% auto;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 15px;
+            text-align: center;
+            color: var(--text-primary);
+            position: relative;
+        }
+        
+        .modal-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .modal-content label {
+            display: block;
+            text-align: left;
+            margin-top: 1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        
+        .modal-content input,
+        .modal-content select,
+        .modal-content textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-top: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+        }
+        
+        .modal-content textarea {
+            min-height: 80px;
+            resize: none;
+        }
+        
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+        
+        .close:hover {
+            color: var(--primary-color);
+        }
+        
+        footer {
+            background: #020617;
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .section-header h1 {
+                font-size: 2.2rem;
+            }
+            .treino-card {
+                padding-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <span>💪</span>
+            <span>Gym Jabruthur</span>
+        </div>
+        <nav>
+            <a href="academiainicial.html">Início</a>
+            <a href="academiaplanos.html">Planos</a>
+            <a href="academiatreinos.html">Treinos</a>
+            <a href="#">Contato</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="section-header">
+            <h1>Treinos Personalizados</h1>
+            <p>Escolha o treino ideal para seu objetivo ou monte seu treino!</p>
+        </div>
+
+        <div class="treinos-container">
+
+            <!-- Treino 1 -->
+            <div class="treino-card">
+                <img src="https://treinomestre.com.br/wp-content/uploads/2017/11/treino-de-peito-e-triceps-abc-.jpg" alt="Peito e Tríceps">
+                <div class="treino-card-content">
+                    <h3>Peito e Tríceps</h3>
+                    <p>Foque na força e definição com exercícios como Supino, Crucifixo e Tríceps Corda.</p>
+                    <a href="#" class="btn-treino">Ver Detalhes</a>
+                </div>
+            </div>
+
+            <!-- Treino 2 -->
+            <div class="treino-card">
+                <img src="https://treinomestre.com.br/wp-content/uploads/2017/11/treino-de-costas-biceps-e-antebra%C3%A7os-.jpg" alt="Costas e Bíceps">
+                <div class="treino-card-content">
+                    <h3>Costas e Bíceps</h3>
+                    <p>Desenvolva suas costas e bíceps com Puxada, Remada e Rosca Direta.</p>
+                    <a href="#" class="btn-treino">Ver Detalhes</a>
+                </div>
+            </div>
+
+            <!-- Treino 3 -->
+            <div class="treino-card">
+                <img src="https://treinomestre.com.br/wp-content/uploads/2017/06/Treino-de-coxas-para-o-emagrecimento-capa.jpg" alt="Pernas">
+                <div class="treino-card-content">
+                    <h3>Pernas</h3>
+                    <p>Fortaleça as pernas com Agachamento, Leg Press e Cadeira Extensora.</p>
+                    <a href="#" class="btn-treino">Ver Detalhes</a>
+                </div>
+            </div>
+
+            <!-- Treino 4 -->
+            <div class="treino-card">
+                <img src="https://treinomestre.com.br/wp-content/uploads/2019/03/treino-intervalado-.jpg" alt="Cardio e Resistência">
+                <div class="treino-card-content">
+                    <h3>Cardio e Resistência</h3>
+                    <p>Aumente sua resistência com treinos de corrida, bicicleta e HIIT.</p>
+                    <a href="#" class="btn-treino">Ver Detalhes</a>
+                </div>
+            </div>
+
+            <!-- Treino Personalizado -->
+            <div class="treino-card destaque">
+                <div class="treino-card-content">
+                    <h3>Monte Seu Treino</h3>
+                    <p>Solicite um treino personalizado de acordo com seus objetivos e necessidades.</p>
+                    <a href="#" class="btn-treino" onclick="abrirModalTreino()">Criar Treino</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Modal Treino Personalizado -->
+    <div id="modalTreinoPersonalizado" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModalTreino()">&times;</span>
+            <h2>Monte Seu Treino</h2>
+            <p>Preencha as informações para receber um treino feito sob medida para você.</p>
+
+            <form id="formTreinoPersonalizado" method="POST" action="processa_treino.php">
+                <label for="cpf">CPF ou ID de Matrícula</label>
+                <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF" required>
+
+                <label for="peso">Peso (kg)</label>
+                <input type="number" step="0.1" id="peso" name="peso" placeholder="Ex: 70.5" required>
+
+                <label for="altura">Altura (cm)</label>
+                <input type="number" step="0.1" id="altura" name="altura" placeholder="Ex: 170" required>
+
+                <label for="objetivo">Objetivo Principal</label>
+                <select id="objetivo" name="objetivo" required>
+                <option value="">Selecione</option>
+                <option value="emagrecimento">Emagrecimento</option>
+                <option value="hipertrofia">Hipertrofia</option>
+                <option value="resistencia">Resistência</option>
+                <option value="condicionamento">Condicionamento Físico</option>
+                <option value="saude">Saúde Geral</option>
+            </select>
+
+                <label for="restricoes">Restrições ou observações</label>
+                <textarea id="restricoes" name="restricoes" placeholder="Informe lesões, restrições ou preferências"></textarea>
+
+                <button type="submit" class="btn-treino">Enviar Solicitação</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">
+            <span>💪</span>
+            <span>Gym Jabruthur</span>
+        </div>
+        <p>© 2025 Academia Jabruthur & Company | Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        function abrirModalTreino() {
+            document.getElementById('modalTreinoPersonalizado').style.display = 'block';
+        }
+
+        function fecharModalTreino() {
+            document.getElementById('modalTreinoPersonalizado').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('modalTreinoPersonalizado');
+            if (event.target === modal) {
+                fecharModalTreino();
+            }
+        }
+    </script>
+</body>
+
+</html>

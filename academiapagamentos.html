@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamentos - Gym Jabruthur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="academiapagamentos.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">💪 Gym Jabruthur</div>
+        <nav>
+            <a href="academiainicial.html">Início</a>
+            <a href="academiaplanos.html">Planos</a>
+            <a href="academiatreinos.html">Treinos</a>
+            <a href="#">Contato</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="section-header">
+            <h1>Pagamentos</h1>
+            <p>Registre e gerencie todos os pagamentos da academia</p>
+        </div>
+
+        <div class="table-container">
+            <button class="btn btn-primary" onclick="abrirModalPagamento()">Registrar Novo Pagamento</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Aluno / CPF</th>
+                        <th>Plano</th>
+                        <th>Data Vencimento</th>
+                        <th>Data Pagamento</th>
+                        <th>Valor Pago (R$)</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1 / 123.456.789-00</td>
+                        <td>Treino Express</td>
+                        <td>2025-09-10</td>
+                        <td>2025-09-09</td>
+                        <td>100,00</td>
+                        <td>PAGO</td>
+                    </tr>
+                    <tr>
+                        <td>2 / 987.654.321-00</td>
+                        <td>Maratona Jabruthur</td>
+                        <td>2025-09-10</td>
+                        <td></td>
+                        <td>270,00</td>
+                        <td>PENDENTE</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div id="modalPagamento" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModalPagamento()">&times;</span>
+            <h2>Registrar Pagamento</h2>
+            <form id="formPagamento" method="POST" action="processa_pagamento.php">
+
+                <label for="id_aluno">ID do Aluno ou CPF</label>
+                <input type="text" id="id_aluno" name="aluno_info" placeholder="Digite ID ou CPF" required>
+
+                <label for="plano">Plano</label>
+                <select id="plano" name="id_plano" required onchange="atualizaValor()">
+                <option value="" data-valor="0">Selecione o plano</option>
+                <option value="1" data-valor="100">Treino Express - R$100,00</option>
+                <option value="2" data-valor="270">Três Meses de Poder - R$270,00</option>
+                <option value="3" data-valor="900">Maratona Jabruthur - R$900,00</option>
+            </select>
+
+                <label for="valor_pago">Valor Pago (R$)</label>
+                <input type="number" step="0.01" id="valor_pago" name="valor_pago" required readonly>
+
+                <label for="data_vencimento">Data de Vencimento</label>
+                <input type="date" id="data_vencimento" name="data_vencimento" required>
+
+                <label for="data_pagamento">Data de Pagamento</label>
+                <input type="date" id="data_pagamento" name="data_pagamento">
+
+                <label for="status">Status</label>
+                <select id="status" name="status" required>
+                <option value="PENDENTE">PENDENTE</option>
+                <option value="PAGO">PAGO</option>
+                <option value="ATRASADO">ATRASADO</option>
+            </select>
+
+                <button type="submit" class="btn btn-primary" style="margin-top:1rem;">Registrar Pagamento</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="academiapagamentos.js"></script>
+</body>
+
+</html>
